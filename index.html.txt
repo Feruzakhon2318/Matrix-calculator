@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор Матрицы Пифагора</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #6b8e23;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #6b8e23;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #6b8e23;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #556b2f;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #6b8e23;
+            padding: 10px;
+            text-align: center;
+            color: #333;
+        }
+
+        th {
+            background-color: #f0e68c;
+            font-weight: bold;
+        }
+
+        .highlight {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h2>Калькулятор Матрицы Пифагора</h2>
+    <div>
+        <label for="birthdate">Введите дату рождения (дд.мм.гггг):</label><br>
+        <input type="text" id="birthdate" placeholder="например, 23.02.1991"><br>
+        <button onclick="calculateMatrix()">Рассчитать</button>
+    </div>
+    <table id="resultTable" style="display: none;">
+        <tr>
+            <th colspan="3">Число судьбы</th>
+            <td id="destinyNumber"></td>
+        </tr>
+        <tr>
+            <td>Характер</td>
+            <td>Здоровье</td>
+            <td>Удача</td>
+            <td>Цель</td>
+        </tr>
+        <tr>
+            <td id="char"></td>
+            <td id="health"></td>
+            <td id="luck"></td>
+            <td id="goal"></td>
+        </tr>
+        <tr>
+            <td>Энергия</td>
+            <td>Логика</td>
+            <td>Долг</td>
+            <td>Семья</td>
+        </tr>
+        <tr>
+            <td id="energy"></td>
+            <td id="logic"></td>
+            <td id="duty"></td>
+            <td id="family"></td>
+        </tr>
+        <tr>
+            <td>Интерес</td>
+            <td>Труд</td>
+            <td>Память</td>
+            <td>Привычки</td>
+        </tr>
+        <tr>
+            <td id="interest"></td>
+            <td id="work"></td>
+            <td id="memory"></td>
+            <td id="habits"></td>
+        </tr>
+    </table>
+
+    <script>
+        function sumDigits(num) {
+            return String(num).split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+        }
+
+        function countDigit(num, digit) {
+            return String(num).split('').filter(n => n === String(digit)).length;
+        }
+
+        function calculateMatrix() {
+            const birthdate = document.getElementById('birthdate').value;
+
+            // Проверка корректности ввода даты
+            if (!/^\d{2}\.\d{2}\.\d{4}$/.test(birthdate)) {
+                alert('Введите корректную дату в формате ДД.ММ.ГГГГ');
+                return;
+            }
+
+            const [day, month, year] = birthdate.split('.').map(Number);
+
+            if (day > 31  month > 12  year < 1900 || year > new Date().getFullYear()) {
+                alert('Введите реальную дату!');
+                return;
+            }
+
+            // 1. Первое дополнительное число (ПДЧ)
+            const firstAdd = sumDigits(day) + sumDigits(month) + sumDigits(year);
+
+            // 2. Второе дополнительное число (ВДЧ)
+            const secondAdd = sumDigits(firstAdd);
+
+            // 3. Третье дополнительное число (ТДЧ)
+            const thirdAdd = firstAdd - 2 * (day % 10 || Math.floor(day / 10));
+
+            // 4. Четвертое дополнительное число (ЧДЧ)const fourthAdd = sumDigits(Math.abs(thirdAdd));
+
+            // 5. Число судьбы
+            let destinyNumber = secondAdd !== 11 ? sumDigits(secondAdd) : secondAdd;
+
+            // 6. Рассчитываем значения для таблицы
+            const charCount = countDigit(firstAdd, 1); // Количество единиц для Характера
+            const luck = sumDigits(thirdAdd); // Удача
+            const habits = fourthAdd; // Привычки
+
+            // Заполнение таблицы
+            document.getElementById('destinyNumber').textContent = destinyNumber;
+            document.getElementById('char').textContent = charCount;
+            document.getElementById('health').textContent = secondAdd || "-";
+            document.getElementById('luck').textContent = luck || "-";
+            document.getElementById('goal').textContent = fourthAdd || "-";
+            document.getElementById('energy').textContent = "2222";
+            document.getElementById('logic').textContent = secondAdd;
+            document.getElementById('duty').textContent = "-";
+            document.getElementById('family').textContent = fourthAdd;
+            document.getElementById('interest').textContent = "33";
+            document.getElementById('work').textContent = "-";
+            document.getElementById('memory').textContent = "999";
+            document.getElementById('habits').textContent = habits;
+
+            document.getElementById('resultTable').style.display = 'table';
+        }
+    </script>
+</body>
+</html>
