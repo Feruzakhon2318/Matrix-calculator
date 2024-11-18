@@ -5,10 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Калькулятор Матрицы Пифагора</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-    input, button { width: 100%; padding: 10px; margin-top: 10px; }
-    .result { margin-top: 20px; padding: 10px; background: #f4f4f4; border-radius: 5px; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f1e6; /* Бежевый фон */
+      color: #3c4b3f; /* Оливковый текст */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #ffffff; /* Белый фон контейнера */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid #d6d1c1; /* Светлый оливковый бордер */
+    }
+
+    h1 {
+      text-align: center;
+      color: #3c4b3f;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #3c4b3f;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #d6d1c1;
+      border-radius: 5px;
+      background-color: #f9f8f3;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #7c9473; /* Оливковый цвет */
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #6b8463; /* Более тёмный оливковый */
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f8f3; /* Светло-бежевый */
+      border-radius: 5px;
+      border: 1px solid #d6d1c1;
+    }
+
+    .alert {
+      color: #b00020; /* Красный текст для ошибок */
+      background-color: #f8d7da;
+      padding: 10px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -19,7 +83,6 @@
     <button onclick="calculateMatrix()">Рассчитать</button>
     <div id="result" class="result"></div>
   </div>
-
   <script src="calculator.js"></script>
 </body>
 </html>
